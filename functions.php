@@ -423,9 +423,9 @@ function add_custom_step_in_input() {
  * Redirect to "Thank you" page after checkout
  */
   
-add_action( 'template_redirect', 'truemisha_redirect_to_thank_you' );
+add_action( 'template_redirect', 'truejb_redirect_to_thank_you' );
  
-function truemisha_redirect_to_thank_you() {
+function truejb_redirect_to_thank_you() {
  
 	// if not the "Order accepted" page, then we do nothing
 	if( ! is_order_received_page() ) {
@@ -452,9 +452,9 @@ function truemisha_redirect_to_thank_you() {
  * Upsell items on the "Thank you" page
  */
   
-  add_action( 'woocommerce_thankyou', 'truemisha_buy_more' );
+  add_action( 'woocommerce_thankyou', 'truejb_buy_more' );
  
-function truemisha_buy_more() {
+function truejb_buy_more() {
 	echo '<h2>Maybe buy something else?</h2>';
 	echo do_shortcode( '[products ids="14,22"]' );
 }
@@ -504,9 +504,9 @@ function true_shipping_single_product() {
  * Creating a separate tab with shipping costs on the product page
  */
   
-add_filter( 'woocommerce_product_tabs', 'truemisha_shipping_product_tab', 25 );
+add_filter( 'woocommerce_product_tabs', 'truejb_shipping_product_tab', 25 );
  
-function truemisha_shipping_product_tab( $tabs ) {
+function truejb_shipping_product_tab( $tabs ) {
 	$tabs[ 'shipping_cost' ] = array(
 		'title' 	=> 'Delivery cost',
 		'priority' 	=> 25,
@@ -552,9 +552,9 @@ function truemisha_shipping_product_tab( $tabs ) {
  */
  
  // Removing tabs
- add_filter( 'woocommerce_product_tabs', 'truemisha_remove_product_tabs', 25 );
+ add_filter( 'woocommerce_product_tabs', 'truejb_remove_product_tabs', 25 );
  
-function truemisha_remove_product_tabs( $tabs ) {
+function truejb_remove_product_tabs( $tabs ) {
  if( ! empty( $tabs[ 'description' ] ) ) {
 	unset( $tabs[ 'description' ] );
 }
@@ -569,9 +569,9 @@ if( ! empty( $tabs[ 'additional_information' ] ) ) {
   
 //  Renaming tabs
 
-add_filter( 'woocommerce_product_tabs', 'truemisha_rename_tabs', 25 );
+add_filter( 'woocommerce_product_tabs', 'truejb_rename_tabs', 25 );
  
-function truemisha_rename_tabs( $tabs ) {
+function truejb_rename_tabs( $tabs ) {
 	$tabs[ 'description' ][ 'title' ] = 'About the product';
 	$tabs[ 'reviews' ][ 'title' ] = 'what people think';
 	$tabs[ 'additional_information' ][ 'title' ] = 'Characteristics';
@@ -581,9 +581,9 @@ function truemisha_rename_tabs( $tabs ) {
 }
 
 // Changing the order of tabs
-add_filter( 'woocommerce_product_tabs', 'truemisha_reorder_tabs', 25 );
+add_filter( 'woocommerce_product_tabs', 'truejb_reorder_tabs', 25 );
  
-function truemisha_reorder_tabs( $tabs ) {
+function truejb_reorder_tabs( $tabs ) {
  
 	$tabs[ 'description' ][ 'priority' ] = 10000;
 	return $tabs;
@@ -591,35 +591,35 @@ function truemisha_reorder_tabs( $tabs ) {
 }
 
 //  Changing the contents of a tab
-add_filter( 'woocommerce_product_tabs', 'truemisha_custom_description_tab', 25 );
+add_filter( 'woocommerce_product_tabs', 'truejb_custom_description_tab', 25 );
  
-function truemisha_custom_description_tab( $tabs ) {
+function truejb_custom_description_tab( $tabs ) {
  
-	$tabs[ 'description' ][ 'callback' ] = 'truemisha_super_tab';
+	$tabs[ 'description' ][ 'callback' ] = 'truejb_super_tab';
 	return $tabs;
  
 }
  
-function truemisha_super_tab() {
+function truejb_super_tab() {
 	echo '<h2>Some headline</h2>';
 	echo '<p>Some description</p>';
 }
 
 // create your own tab
-add_filter( 'woocommerce_product_tabs', 'truemisha_new_product_tab', 25 );
+add_filter( 'woocommerce_product_tabs', 'truejb_new_product_tab', 25 );
  
-function truemisha_new_product_tab( $tabs ) {
+function truejb_new_product_tab( $tabs ) {
  
 	$tabs[ 'new_super_tab' ] = array(
 		'title' 	=> 'super таб',
 		'priority' 	=> 25,
-		'callback' 	=> 'truemisha_new_tab_content'
+		'callback' 	=> 'truejb_new_tab_content'
 	);
  
 	return $tabs;
  
 }
-function truemisha_new_tab_content() {
+function truejb_new_tab_content() {
 	echo '<p>Some HTML code for the tab</p>';
 }
 
@@ -630,7 +630,7 @@ function truemisha_new_tab_content() {
  * Transferring images uploaded for a product to the product gallery
  */
  
- function truemisha_attached_images_to_gallery( $product_id ) {
+ function truejb_attached_images_to_gallery( $product_id ) {
  
 	$images = get_posts( 
 		array(
@@ -657,9 +657,9 @@ function truemisha_new_tab_content() {
  * display number of sales on product page
  */
  
-add_action( 'woocommerce_single_product_summary', 'truemisha_product_sales', 25 );
+add_action( 'woocommerce_single_product_summary', 'truejb_product_sales', 25 );
  
-function truemisha_product_sales() {
+function truejb_product_sales() {
 
 	//determine the ID of the current product
 	global $product;
@@ -703,9 +703,9 @@ function truemisha_product_sales() {
  */
  
  //  Adding a discount to the email to the buyer
- add_action( 'woocommerce_email_before_order_table', 'truemisha_discount_in_email', 25, 4 );
+ add_action( 'woocommerce_email_before_order_table', 'truejb_discount_in_email', 25, 4 );
  
-function truemisha_discount_in_email( $order, $sent_to_admin, $plain_text, $email ) {
+function truejb_discount_in_email( $order, $sent_to_admin, $plain_text, $email ) {
  
 	// checking that this hook is used in a letter to the buyer, and not to the admin
 	if( false === $sent_to_admin ) {
@@ -716,9 +716,9 @@ function truemisha_discount_in_email( $order, $sent_to_admin, $plain_text, $emai
 }
 
 //  if the email settings are set to Plain text
-  add_action( 'woocommerce_email_before_order_table', 'truemisha_discount_in_email', 25, 4 );
+  add_action( 'woocommerce_email_before_order_table', 'truejb_discount_in_email', 25, 4 );
  
-function truemisha_discount_in_email( $order, $sent_to_admin, $plain_text, $email ) {
+function truejb_discount_in_email( $order, $sent_to_admin, $plain_text, $email ) {
  
 	// checking that this hook is used in a letter to the buyer, and not to the admin
 	if( false === $sent_to_admin ) {
@@ -736,9 +736,9 @@ function truemisha_discount_in_email( $order, $sent_to_admin, $plain_text, $emai
 }
 
 //  Adding additional information about the order to the letters to the administrator
-add_action( 'woocommerce_email_before_order_table', 'truemisha_ordermeta_in_email', 25, 4 );
+add_action( 'woocommerce_email_before_order_table', 'truejb_ordermeta_in_email', 25, 4 );
  
-function truemisha_ordermeta_in_email( $order, $sent_to_admin, $plain_text, $email ) {
+function truejb_ordermeta_in_email( $order, $sent_to_admin, $plain_text, $email ) {
  
 	// checking that this hook is activated in the administrator's email
 	if( true === $sent_to_admin ) {
@@ -758,9 +758,9 @@ function truemisha_ordermeta_in_email( $order, $sent_to_admin, $plain_text, $ema
  * attaching the file to the letter about a new order and about order processing
  */
  
- add_filter( 'woocommerce_email_attachments', 'truemisha_file_attachment_in_emails', 25, 4 );
+ add_filter( 'woocommerce_email_attachments', 'truejb_file_attachment_in_emails', 25, 4 );
  
-function truemisha_file_attachment_in_emails( $attachments, $email_id, $order, $email ) {
+function truejb_file_attachment_in_emails( $attachments, $email_id, $order, $email ) {
  
 	$file_id = 132; // Here we indicate the ID of our attachment file
 	$email_ids = array( 'new_order', 'customer_processing_order' ); // which emails to attach to
@@ -779,9 +779,9 @@ function truemisha_file_attachment_in_emails( $attachments, $email_id, $order, $
  */
   
   
-  add_filter( 'woocommerce_variable_price_html', 'truemisha_variation_price', 20, 2 );
+  add_filter( 'woocommerce_variable_price_html', 'truejb_variation_price', 20, 2 );
  
-function truemisha_variation_price( $price, $product ) {
+function truejb_variation_price( $price, $product ) {
  
 	$min_regular_price = $product->get_variation_regular_price( 'min', true );
 	$min_sale_price = $product->get_variation_sale_price( 'min', true );
@@ -807,9 +807,9 @@ function truemisha_variation_price( $price, $product ) {
  * Indicate the presence of each variation in the product card
  */
  
- add_action( 'woocommerce_after_shop_loop_item', 'truemisha_variations_stock', 25 );
+ add_action( 'woocommerce_after_shop_loop_item', 'truejb_variations_stock', 25 );
  
-function truemisha_variations_stock(){
+function truejb_variations_stock(){
  
 	// immediately get the product object from the global variable
 	global $product;
@@ -919,9 +919,9 @@ function true_hide_variations_price_2() {
  * hide coupon code AND display custom message
  */
  
- add_filter( 'woocommerce_cart_totals_coupon_label', 'truemisha_hide_coupon_code', 20, 2 );
+ add_filter( 'woocommerce_cart_totals_coupon_label', 'truejb_hide_coupon_code', 20, 2 );
  
-function truemisha_hide_coupon_code( $label, $coupon ) {
+function truejb_hide_coupon_code( $label, $coupon ) {
  
 	if( 'COUPON1000RUB' == $coupon->code ) {
 		$label = 'Discount on purchases from ' . wc_price( 1000000 );
@@ -937,9 +937,9 @@ function truemisha_hide_coupon_code( $label, $coupon ) {
  * We display the discounted price from the coupon and the original price in the "Subtotal"
  */
  
- add_filter( 'woocommerce_cart_subtotal', 'truemisha_subtotal_with_coupons', 25 );
+ add_filter( 'woocommerce_cart_subtotal', 'truejb_subtotal_with_coupons', 25 );
  
-function truemisha_subtotal_with_coupons( $cart_subtotal ){
+function truejb_subtotal_with_coupons( $cart_subtotal ){
  
 	// if some coupon is applied
 	if ( WC()->cart->get_cart_discount_total() <> 0 ) {
